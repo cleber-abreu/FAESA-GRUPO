@@ -1,0 +1,20 @@
+101.202.303-11;Astolfo Alves;01/01/1981;2.00
+202.202.202-22;Bernadete Baranga;02/02/1982;4.00
+303.303.303-33;Claudisney Calça Caída;03/03/1983;8.00
+101.202.303-12;Diovanio Comdemesmo;04/04/1984;16.00
+202.202.202-23;Emengardo Esteves;05/05/1985;32.00
+303.303.303-34;Fulano de Tal;06/06/1986;64.00
+101.202.303-13;Georgius Castaninha;06/06/1986;128.00
+202.202.202-24;Humberlindo;08/08/1988;256.00
+303.303.303-35;Istalone;09/09/1989;1.99
+101.202.303-14;Jholeno dos Bilton;10/10/1990;2.88
+202.202.202-25;Letsgo Daqui;10/11/1991;1100.00
+303.303.303-36;Maiquel Edy Marfy;10/12/1992;2.89
+101.202.303-15;Necrotério Pereira Da Silva;10/01/1994;1.10
+202.202.202-26;Orlando Modesto Pinto;10/02/1995;2.90
+303.303.303-37;Pernilonguildo Tentofaz Furão;12/03/1996;30.00
+101.202.303-16;Rolando Escadabaixo;12/04/1997;40.00
+202.202.202-27;Sextavado Obtusângulo Reto;13/05/1998;50.00
+303.303.303-38;Tobiniana Matusquela;13/06/1999;60.00
+101.202.303-17;Zélia Tocafundo Pinto;13/07/2000;2000.00
+202.202.202-28;Eraldonclóbes Souza;13/08/2001;5.00
