@@ -22,4 +22,20 @@ public class ListEnc {
 		}
 		this.ult = novoNo;
 	}
+	
+	@Override
+	public String toString() {
+		String lista = "";
+		No atual = this.prim;
+		
+		while (atual != null) {
+			lista += atual.getInfo().getCpf() + " \t-\t" 
+					+ atual.getInfo().getNome() + " \t-\t" 
+					+ atual.getInfo().getData() + " \t-\t" 
+					+ atual.getInfo().getValor() + "\n";
+			atual = atual.getProx();
+		}
+		
+		return lista;
+	}
 }
