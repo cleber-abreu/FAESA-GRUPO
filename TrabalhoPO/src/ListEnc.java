@@ -2,10 +2,12 @@
 public class ListEnc {
 	private No prim;
 	private No ult;
+	private int quantNos;
 	
 	public ListEnc() {
 		prim = null;
 		ult	 = null;
+		quantNos = 0;
 	}
 	
 	public boolean isVazia() {
@@ -21,6 +23,7 @@ public class ListEnc {
 			this.ult.setProx(novoNo);
 		}
 		this.ult = novoNo;
+		quantNos++;
 	}
 	
 	@Override
@@ -35,7 +38,6 @@ public class ListEnc {
 					+ atual.getInfo().getValor() + "\n";
 			atual = atual.getProx();
 		}
-		
 		return lista;
 	}
 }
