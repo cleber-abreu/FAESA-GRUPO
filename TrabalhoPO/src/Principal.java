@@ -29,11 +29,12 @@ public class Principal {
 	}
 	
 	public static void main(String[] args) throws ParseException {
-		long tempo = System.currentTimeMillis();	
-		carregaDados("./Dados/Entrada/cliente500alea.txt");
-		tempo = System.currentTimeMillis() - tempo;
+		long tempo = System.nanoTime();
 		
+		carregaDados("./Dados/Entrada/cliente50000alea.txt");
 		System.out.println(lista.toString());
+		
+		tempo = System.nanoTime() - tempo;
 		System.out.println("Tempo: " + tempo);
 	}
 }

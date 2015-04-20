@@ -8,13 +8,13 @@ public class ListEnc {
 		ult	 = null;
 	}
 	
-	public boolean isVazia() {
+	public boolean vazia() {
 		return (this.prim == null);
 	}
 	
 	public void insereUltimo(Dados elem) {
 		No novoNo = new No(elem);
-		if (this.isVazia())
+		if (this.vazia())
 			this.prim = novoNo;
 		else {
 			novoNo.setAnt(this.ult);
