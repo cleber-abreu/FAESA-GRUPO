@@ -9,6 +9,7 @@ public class Dados {
 	private String cpf;
 	private Date data;
 	private double valor;
+	private DateFormat formato = new SimpleDateFormat("dd/MM/yy");
 	
 	public Dados() {
 		// TODO Auto-generated constructor stub
@@ -26,7 +27,6 @@ public class Dados {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
-		DateFormat formato = new SimpleDateFormat("dd/MM/yy");
 		this.data = (Date)formato.parse(data);
 		this.valor = Double.parseDouble(valor);
 	}
@@ -48,7 +48,7 @@ public class Dados {
 	}
 	
 	public String getData() {
-		return data.toString();
+		return formato.format(data);
 	}
 	
 	public void setData(Date data) {
