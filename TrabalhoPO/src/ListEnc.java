@@ -4,6 +4,14 @@ public class ListEnc {
 	private No ult;
 	private int quantNos;
 	
+	public int getQuantNos() {
+		return quantNos;
+	}
+
+	public void setQuantNos(int quantNos) {
+		this.quantNos = quantNos;
+	}
+
 	public ListEnc() {
 		prim = null;
 		ult	 = null;
