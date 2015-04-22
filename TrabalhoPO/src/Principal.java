@@ -18,7 +18,7 @@ public class Principal {
 			
 			while ((linha = in.readLine()) != null) {
 				campo = linha.split(";");
-				lista.insereUltimo(new Dados(campo[0], campo[1], campo[2], campo[3]));
+				lista.insereUltimo(new Item(Long.parseLong(campo[0]), campo[1], campo[2], campo[3]));
 			}
 			
 			in.close();
@@ -29,12 +29,23 @@ public class Principal {
 	}
 	
 	public static void main(String[] args) throws ParseException {
-		long tempo = System.nanoTime();
+		long tempoInicial = System.nanoTime();
+		long tempo;
 		
-		carregaDados("./Dados/Entrada/cliente50000alea.txt");
+		carregaDados("./Dados/Entrada/cliente500alea.txt");
+		tempo = System.nanoTime() - tempoInicial;
+		System.out.println("Tempo para carregar dados: " + tempo);
+		
+		lista.quickSort();
+		
 		System.out.println(lista.toString());
 		
-		tempo = System.nanoTime() - tempo;
-		System.out.println("Tempo: " + tempo);
+		
+		
+		System.out.println("Tempo para carregar dados: " + tempo);
+		System.out.println("Tempo para exibir lista: " + (System.nanoTime() - tempo - tempoInicial));
+		
+		tempo = System.nanoTime() - tempoInicial;
+		System.out.println("Tempo Total: " + tempo);
 	}
 }

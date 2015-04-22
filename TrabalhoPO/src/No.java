@@ -1,6 +1,6 @@
 
 public class No {
-	private Dados info;
+	private Item info;
 	private No prox;
 	private No ant;
 	
@@ -8,7 +8,7 @@ public class No {
 		
 	}
 	
-	public No(Dados info) {
+	public No(Item info) {
 		this.info = info;
 	}
 
@@ -28,11 +28,11 @@ public class No {
 		this.ant = ant;
 	}
 
-	public Dados getInfo() {
+	public Item getInfo() {
 		return info;
 	}
 
-	public void setInfo(Dados info) {
+	public void setInfo(Item info) {
 		this.info = info;
 	}
 	
