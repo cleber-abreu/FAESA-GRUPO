@@ -5,7 +5,7 @@ import java.io.IOException;
 
 
 public class Principal {
-	private static Item[] vetorDados = new Item[50000];
+	private static Item[] vetorDados = new Item[500];
 	private static MetodosOrdenacao metodos = new MetodosOrdenacao();
 	
 	private static void carregaDados(String caminho) {
