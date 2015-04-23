@@ -2,15 +2,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
 
 
 public class Principal {
-	//private static ListEnc lista = new ListEnc();
-	private static Dados[] vetorDados = new Dados[500];
+	private static Item[] vetorDados = new Item[500];
 	private static MetodosOrdenacao metodos = new MetodosOrdenacao();
 	
-	private static void carregaDados(String caminho) throws ParseException {
+	private static void carregaDados(String caminho) {
 		try {
 			File arquivo = new File(caminho);
 			FileReader reader = new FileReader(arquivo);
@@ -18,10 +16,10 @@ public class Principal {
 			String linha = "";
 			String campo[];
 			int i = 0;
+			
 			while ((linha = in.readLine()) != null) {
 				campo = linha.split(";");
-				//lista.insereUltimo(new Dados(campo[0], campo[1], campo[2], campo[3]));
-				vetorDados[i] = new Dados(campo[0], campo[1], campo[2], campo[3]);
+				vetorDados[i] = new Item(campo[0], campo[1], campo[2], campo[3]);
 				i++;
 			}
 			
@@ -32,17 +30,25 @@ public class Principal {
 		
 	}
 	
-	public static void main(String[] args) throws ParseException {
-		long tempo = System.currentTimeMillis();	
+	public static void main(String[] args) {
+		long tempoInicial = System.nanoTime();
+		long tempoCarrega, tempoOrdena, tempoTotal;
+		
 		carregaDados("./Dados/Entrada/cliente500alea.txt");
-		tempo = System.currentTimeMillis() - tempo;
+		tempoCarrega = System.nanoTime() - tempoInicial;
 		
-		//System.out.println(lista.toString());
-		ImprimeVetorDados();
-		System.out.println("Tempo: " + tempo);
-		
+		//ImprimeVetorDados();
+				
 		metodos.quicksort(vetorDados);
+		tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
+		
+		tempoTotal = System.nanoTime() - tempoInicial;
 		ImprimeVetorDados();
+		
+		System.out.println("TEMPO"
+				+ "\nCarrega dados : " + tempoCarrega
+				+ "\nOrdena        : " + tempoOrdena
+				+ "\nTotal         : " + tempoTotal);
 	}
 	
 	public static void ImprimeVetorDados(){

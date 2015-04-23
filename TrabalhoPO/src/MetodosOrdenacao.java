@@ -1,13 +1,13 @@
 
 public class MetodosOrdenacao {
 	
-	public void quicksort (Dados[] _lista) {
+	public void quicksort (Item[] _lista) {
 		ordena (0, _lista.length-1, _lista);
 	}
-	private void ordena (int esq, int dir, Dados[] _lista) {
+	private void ordena (int esq, int dir, Item[] _lista) {
 		int i = esq, j = dir;
 		long pivo;
-		Dados temp;
+		Item temp;
 		pivo = Long.parseLong(_lista[(i+j)/2].getCpf());
 		do {
 			while (Long.parseLong(_lista[i].getCpf()) < pivo)
