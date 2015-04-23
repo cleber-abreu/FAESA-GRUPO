@@ -5,7 +5,7 @@ import java.io.IOException;
 
 
 public class Principal {
-	private static Item[] vetorDados = new Item[500];
+	private static Item[] vetorDados = new Item[50000];
 	private static MetodosOrdenacao metodos = new MetodosOrdenacao();
 	
 	private static void carregaDados(String caminho) {
@@ -34,12 +34,12 @@ public class Principal {
 		long tempoInicial = System.nanoTime();
 		long tempoCarrega, tempoOrdena, tempoTotal;
 		
-		carregaDados("./Dados/Entrada/cliente500alea.txt");
+		carregaDados("./Dados/Entrada/cliente50000alea.txt");
 		tempoCarrega = System.nanoTime() - tempoInicial;
 		
 		//ImprimeVetorDados();
 				
-		metodos.quicksort(vetorDados);
+		//metodos.quicksort(vetorDados);
 		tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
 		
 		tempoTotal = System.nanoTime() - tempoInicial;

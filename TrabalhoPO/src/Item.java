@@ -48,6 +48,10 @@ public class Item {
 		return cpf;
 	}
 	
+	public long getCpfLong() {
+		return Long.parseLong(cpf);
+	}
+	
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
