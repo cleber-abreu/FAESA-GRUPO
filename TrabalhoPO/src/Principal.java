@@ -5,14 +5,12 @@ import java.io.IOException;
 
 
 public class Principal {
-	private static Item[] vetorDados = new Item[500];
+	private static Item[] vetorDados;
 	private static MetodosOrdenacao metodos = new MetodosOrdenacao();
 	
 	private static void carregaDados(String caminho) {
 		try {
-			File arquivo = new File(caminho);
-			FileReader reader = new FileReader(arquivo);
-			BufferedReader in = new BufferedReader(reader);
+			BufferedReader in = new BufferedReader(new FileReader(caminho));
 			String linha = "";
 			String campo[];
 			int i = 0;
@@ -24,6 +22,8 @@ public class Principal {
 			}
 			
 			in.close();
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,24 +31,40 @@ public class Principal {
 	}
 	
 	public static void main(String[] args) {
-		long tempoInicial = System.nanoTime();
-		long tempoCarrega, tempoOrdena, tempoTotal;
+		long tempoInicial;// = System.currentTimeMillis();
+		long tempoCarrega, tempoOrdena, tempoTotal = 0;
 		
-		carregaDados("./Dados/Entrada/cliente500alea.txt");
-		tempoCarrega = System.nanoTime() - tempoInicial;
+		//String[] tipos = {"alea","ord","inv"};
+		String[] tipos = {"alea"};
+		String nomeArquivo = "";
+		//int[] tamanhos = {500,1000,5000,10000,50000};
+		int[] tamanhos = {20};
 		
-		//ImprimeVetorDados();
-				
-		metodos.quicksort(vetorDados);
-		tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
-		
-		tempoTotal = System.nanoTime() - tempoInicial;
-		ImprimeVetorDados();
-		
-		System.out.println("TEMPO"
-				+ "\nCarrega dados : " + tempoCarrega
-				+ "\nOrdena        : " + tempoOrdena
-				+ "\nTotal         : " + tempoTotal);
+		for (int j = 0; j < tamanhos.length; j++) {
+			for (int k = 0; k < tipos.length; k++) {
+				for (int l = 0; l < 5; l++) {
+					vetorDados = new Item[tamanhos[j]];
+					tempoInicial = System.nanoTime();
+					
+					nomeArquivo = "cliente"+tamanhos[j]+tipos[k];
+					carregaDados("./Dados/Entrada/"+nomeArquivo+".txt");
+					tempoCarrega = System.nanoTime() - tempoInicial;
+					
+					metodos.quicksort(vetorDados);
+					tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
+					
+					tempoTotal = System.nanoTime() - tempoInicial;
+					System.out.println(nomeArquivo);
+					ImprimeVetorDados();
+					
+					System.out.println("TEMPO"
+							+ "\nCarrega dados : " + tempoCarrega
+							+ "\nOrdena        : " + tempoOrdena
+							+ "\nTotal         : " + tempoTotal);
+						
+				}
+			}
+		}
 	}
 	
 	public static void ImprimeVetorDados(){
