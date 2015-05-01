@@ -55,7 +55,7 @@ public class Principal {
 					
 					tempoTotal = System.nanoTime() - tempoInicial;
 					System.out.println(nomeArquivo);
-					ImprimeVetorDados();
+					imprimeVetorDados();
 					
 					System.out.println("TEMPO"
 							+ "\nCarrega dados : " + tempoCarrega
@@ -66,10 +66,10 @@ public class Principal {
 			}
 		}
 		//problema com ABB: estouro de pilha; pesquisar sobre como aumentar memória ou outra opção;
-		RetornaListaItensCPF(vetorDados,RetornaVetorCPF());
+		retornaListaItensCPF(vetorDados,retornaVetorCPF());
 	}
 	
-	public static void ImprimeVetorDados(){
+	public static void imprimeVetorDados(){
 		String mostraVetor = "\n";
 		for (int i = 0; i < vetorDados.length; i++) {
 			mostraVetor += vetorDados[i].getCpf() + " \t-\t" 
@@ -78,9 +78,10 @@ public class Principal {
 					+ vetorDados[i].getValor() + "\n";
 		}
 		System.out.println(mostraVetor);
+		
 	}
 	
-	public static String[] RetornaVetorCPF(){
+	public static String[] retornaVetorCPF(){
 		String[] VetorCPF = new String[200];
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("./Dados/Entrada/cpf.txt"));
@@ -99,34 +100,60 @@ public class Principal {
 		return VetorCPF;
 	}
 	
-	public static void RetornaListaItensCPF(Item[] items, String[] cpfs){
+	//BUSCA OS CPFs NO VETOR DE ITEM E GRAVA OS DADOS NO ARQUIVO
+	public static void retornaListaItensCPF(Item[] items, String[] cpfs){
 		for (int i = 0; i < cpfs.length; i++) {
-			int indice = pesqBinaria(items,cpfs[i]);
+			String indices = pesqBinaria(items,cpfs[i]);//A PESQUISA RETORNA UMA STRING COM OS INDICES ENCONTRADOS PARA O CPF ENVIADO
+			double soma = 0;
 			
-			if (indice != -1){
-				System.out.println(items[indice].getCpf()+" - "+items[indice].getNome()+" - "+
-					items[indice].getData()+" - "+items[indice].getValor());
+			if (indices != null){
+				String[] encontrados = indices.split(","); //CRIA UM VETOR COM A STRING DA PESQUISA
+				for (int j = 0; j < encontrados.length; j++) {
+					//PARA CADA INDICE ENCONTRADO, MOSTRA OS DADOS CORRESPONDENTE (ALTERAR PARA GRAVAR EM UM ARQUIVO)
+					int encontrado = Integer.parseInt(encontrados[j]);
+					System.out.println(items[encontrado].getCpf()+" - "+items[encontrado].getNome()+" - "+
+						items[encontrado].getData()+" - "+items[encontrado].getValor());
+					soma += items[encontrado].getValor();
+				}
+				System.out.println("Total = "+soma);
 			}else{
+				//SE NAO ENCONTRAR NENHUM ELEMENTO DO VETOR ITEM COM O CPF ENVIADO, RETORNA A MENSAGEM (GRABAR NO ARQUIVO A MENSAGEM)
 				System.out.println("CPF INVÁLIDO");
 			}
 		}
 	}
 	
-	public static int pesqBinaria (Item[] _items, String _cpf){
+	public static String pesqBinaria (Item[] _items, String _cpf){
 		int meio, esq, dir;
 		esq = 0;
 		dir = _items.length-1;
+		String posicoes = "";
+		int i;
 		while (esq <= dir){
 			meio = (esq + dir)/2;
-			if (Long.parseLong(_cpf) == _items[meio].getCpfLong())
-				return meio;
-			else{
+			if (Long.parseLong(_cpf) == _items[meio].getCpfLong()){
+				posicoes += meio+","; //SE ACHAR O CPF NA POSICAO DO MEIO, VERIFICA AS POSICOES ADJACENTES;
+				//ANDA COM O VETOR PARA A ESQUERDA PARA VERIFICAR SE EXISTE OUTRO ELEMENTO COM O MESMO CPF
+				i = meio -1;
+				while ( (i >= 0) && (Long.parseLong(_cpf) == _items[i].getCpfLong()) ){
+					posicoes += i+",";
+					i--;
+				}
+				//ANDA COM O VETOR PARA A DIREITA PARA VERIFICAR SE EXISTE OUTRO ELEMENTO COM O MESMO CPF
+				i = meio +1;
+				while ( (i < _items.length) && (Long.parseLong(_cpf) == _items[i].getCpfLong()) ){
+					posicoes += i+",";
+					i++;
+				}
+				return posicoes;
+			
+			}else{
 				if (Long.parseLong(_cpf) < _items[meio].getCpfLong())
 					dir = meio - 1;
 				else
 					esq = meio + 1;
 			}
 		}
-		return -1;
+		return null;
 	}
 }
