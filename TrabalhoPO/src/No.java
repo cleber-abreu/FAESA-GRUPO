@@ -1,39 +1,32 @@
 
 public class No {
 	private Item info;
-	private No prox;
-	private No ant;
+	private No esq, dir;
+	private byte fatorBalanceamento;
 	
-	public No() {
-		
+	public No (Item i){
+		this.info = i;
+		this.fatorBalanceamento = 0;
 	}
-	
-	public No(Item info) {
-		this.info = info;
+	public No getDir() {
+		return this.dir;
 	}
-
-	public No getProx() {
-		return prox;
+	public void setDir(No dir) {
+		this.dir = dir;
 	}
-	
-	public void setProx(No prox) {
-		this.prox = prox;
+	public No getEsq() {
+		return this.esq;
 	}
-
-	public No getAnt() {
-		return ant;
+	public void setEsq(No esq) {
+		this.esq = esq;
 	}
-
-	public void setAnt(No ant) {
-		this.ant = ant;
+	public byte getFatorBalanceamento() {
+		return this.fatorBalanceamento;
 	}
-
+	public void setFatorBalanceamento(byte fatorBalanceamento) {
+		this.fatorBalanceamento = fatorBalanceamento;
+	}
 	public Item getInfo() {
-		return info;
+		return this.info;
 	}
-
-	public void setInfo(Item info) {
-		this.info = info;
-	}
-	
 }
