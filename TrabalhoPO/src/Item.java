@@ -5,8 +5,8 @@ import java.util.Date;
 
 
 public class Item {
-	private long cpf;
 	private String nome;
+	private String cpf;
 	private Date data;
 	private double valor;
 	private DateFormat formato = new SimpleDateFormat("dd/MM/yy");
@@ -15,7 +15,7 @@ public class Item {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Item(int cpf, String nome, Date data, double valor) {
+	public Item(String cpf, String nome, Date data, double valor) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
@@ -23,12 +23,17 @@ public class Item {
 		this.valor = valor;
 	}
 	
-	public Item(long cpf, String nome, String data, String valor) throws ParseException {
+	public Item(String cpf, String nome, String data, String valor) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
-		this.data = (Date)formato.parse(data);
 		this.valor = Double.parseDouble(valor);
+		
+		try {
+			this.data = (Date)formato.parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getNome() {
@@ -39,11 +44,15 @@ public class Item {
 		this.nome = nome;
 	}
 	
-	public long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 	
-	public void setCpf(int cpf) {
+	public long getCpfLong() {
+		return Long.parseLong(cpf);
+	}
+	
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	
