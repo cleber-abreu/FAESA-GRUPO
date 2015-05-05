@@ -46,8 +46,8 @@ public class Principal {
 					vetorDados = new Item[tamanhos[j]];
 					tempoInicial = System.nanoTime();
 					
-					nomeArquivo = "cliente"+tamanhos[j]+tipos[k];
-					carregaDados("./Dados/Entrada/"+nomeArquivo+".txt");
+					nomeArquivo = "cliente"+tamanhos[j]+tipos[k]+".txt";
+					Arquivo.ler(vetorDados, nomeArquivo);
 					tempoCarrega = System.nanoTime() - tempoInicial;
 					
 					metodos.quicksort(vetorDados);
@@ -55,6 +55,7 @@ public class Principal {
 					
 					tempoTotal = System.nanoTime() - tempoInicial;
 					System.out.println(nomeArquivo);
+
 					imprimeVetorDados();
 					
 					System.out.println("TEMPO"
@@ -83,20 +84,8 @@ public class Principal {
 	
 	public static String[] retornaVetorCPF(){
 		String[] VetorCPF = new String[200];
-		try {
-			BufferedReader in = new BufferedReader(new FileReader("./Dados/Entrada/cpf.txt"));
-			String linha = "";
-			int i = 0;
-			
-			while ((linha = in.readLine()) != null) {
-				VetorCPF[i] = linha;
-				i++;
-			}
-			in.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Arquivo.lerCpf(VetorCPF);
+
 		return VetorCPF;
 	}
 	
