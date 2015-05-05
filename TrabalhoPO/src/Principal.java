@@ -1,34 +1,8 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 
 
 public class Principal {
 	private static Item[] vetorDados;
 	private static MetodosOrdenacao metodos = new MetodosOrdenacao();
-	
-	private static void carregaDados(String caminho) {
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(caminho));
-			String linha = "";
-			String campo[];
-			int i = 0;
-			
-			while ((linha = in.readLine()) != null) {
-				campo = linha.split(";");
-				vetorDados[i] = new Item(campo[0], campo[1], campo[2], campo[3]);
-				i++;
-			}
-			
-			in.close();
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
 	
 	public static void main(String[] args) {
 		long tempoInicial;// = System.currentTimeMillis();
@@ -56,7 +30,7 @@ public class Principal {
 					tempoTotal = System.nanoTime() - tempoInicial;
 					System.out.println(nomeArquivo);
 
-					imprimeVetorDados();
+					Arquivo.gravar(vetorDados, nomeArquivo);
 					
 					System.out.println("TEMPO"
 							+ "\nCarrega dados : " + tempoCarrega
@@ -67,7 +41,10 @@ public class Principal {
 			}
 		}
 		//problema com ABB: estouro de pilha; pesquisar sobre como aumentar memória ou outra opção;
-		retornaListaItensCPF(vetorDados,retornaVetorCPF());
+		//retornaListaItensCPF(vetorDados,retornaVetorCPF());
+		String[] cpf = new String[200];
+		Arquivo.lerCpf(cpf);
+		MetodosPesquisa.pesqBinaria(vetorDados, cpf);
 	}
 	
 	public static void imprimeVetorDados(){

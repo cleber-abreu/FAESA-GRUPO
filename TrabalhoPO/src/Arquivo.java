@@ -67,11 +67,11 @@ public class Arquivo {
 		}
 	}
 	
-	public static void gravarCpf(Item[] vetorCpf, String arquivo) {
+	public static void gravarCpf(String[] vetorCpf, String arquivo) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo)));
 			for (int i = 0; i < vetorCpf.length; i++) {
-				out.write(vetorCpf[i].getCpf());
+				out.write(vetorCpf[i]);
 				out.newLine();
 			}
 			out.close();

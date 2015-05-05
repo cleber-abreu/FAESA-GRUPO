@@ -40,7 +40,7 @@ public class MetodosOrdenacao {
 	}
 	
 	private void quickInsert (Item[] _lista, int esq, int dir) {
-		int i = left, j = right;
+		int i = esq, j = dir;
         Item tmp;
         Long pivot = _lista[(i+j)/2].getCpfLong();
 
@@ -61,26 +61,26 @@ public class MetodosOrdenacao {
             }
         }
 
-        if (left < j) {
-            if ((j - left) > 25) {
-                quickInsert(_lista, left, j);
+        if (esq < j) {
+            if ((j - esq) > 25) {
+                quickInsert(_lista, esq, j);
             } else {
-                insertionSort(_lista, left, j);
+                insertionSort(_lista, esq, j);
             }
         }
-        if (right > i) {
-            if ((right - i) > 25) {
-                quickInsert(_lista, i, right);
+        if (dir > i) {
+            if ((dir - i) > 25) {
+                quickInsert(_lista, i, dir);
             } else {
-                insertionSort(_lista, i, right);
+                insertionSort(_lista, i, dir);
             }
         }
 	}
 	
-	private static void insertionSort(Item[] _lista, int left, int right) {
+	private static void insertionSort(Item[] _lista, int esq, int dir) {
         int i, j;
         Item tmp;
-        for (i = left + 1; i <= right; i++) {
+        for (i = esq + 1; i <= dir; i++) {
             tmp = _lista[i];
             j = i;
             while (j > 0 && _lista[j - 1].getCpfLong() > tmp.getCpfLong()) {
