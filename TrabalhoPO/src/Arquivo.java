@@ -31,23 +31,6 @@ public class Arquivo {
 		}
 	}
 	
-	public static void lerCpf(String[] VetorCPF) {
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(ENTRADA + "cpf.txt"));
-			String linha = "";
-			int i = 0;
-			
-			while ((linha = in.readLine()) != null) {
-				VetorCPF[i] = linha;
-				i++;
-			}
-			in.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static void gravar(Item[] vetorDados, String arquivo) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo)));
@@ -66,4 +49,38 @@ public class Arquivo {
 		}
 		
 	}
+	
+	public static void lerCpf(String[] VetorCPF) {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(ENTRADA + "cpf.txt"));
+			String linha = "";
+			int i = 0;
+			
+			while ((linha = in.readLine()) != null) {
+				VetorCPF[i] = linha;
+				i++;
+			}
+			in.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void gravarCpf(Item[] vetorCpf, String arquivo) {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo)));
+			for (int i = 0; i < vetorCpf.length; i++) {
+				out.write(vetorCpf[i].getCpf());
+				out.newLine();
+			}
+			out.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
