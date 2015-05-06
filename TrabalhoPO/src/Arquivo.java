@@ -73,6 +73,7 @@ public class Arquivo {
 			for (int i = 0; i < vetorCpf.length; i++) {
 				out.write(vetorCpf[i]);
 				out.newLine();
+				out.newLine();
 			}
 			out.close();
 			

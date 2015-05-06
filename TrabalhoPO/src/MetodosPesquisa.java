@@ -24,17 +24,17 @@ public class MetodosPesquisa {
 			meio = (esq + dir)/2;
 			
 			if (Long.parseLong(_cpf) == _items[meio].getCpfLong()){
-				cpfEncontrado += _cpf + ";" 
-						+ _items[meio].getNome() + ";" 
-						+ _items[meio].getData() + ";"
-						+ _items[meio].getValor() + ";";
+				cpfEncontrado += _cpf + "\t-\t" 
+						+ _items[meio].getNome() + "\r\n" 
+						+ _items[meio].getData() + "\t"
+						+ _items[meio].getValor() + "\r\n";
 				total =  _items[meio].getValor();
 				
 				//ANDA COM O VETOR PARA A ESQUERDA PARA VERIFICAR SE EXISTE OUTRO ELEMENTO COM O MESMO CPF
 				i = meio -1;
 				while ( (i >= 0) && (Long.parseLong(_cpf) == _items[i].getCpfLong()) ){
-					cpfEncontrado += _items[meio].getData() + ";"
-							+_items[meio].getValor() + ";";
+					cpfEncontrado += _items[meio].getData() + "\t"
+							+ _items[meio].getValor() + "\r\n";
 					total += _items[meio].getValor();
 					i--;
 				}
@@ -42,12 +42,12 @@ public class MetodosPesquisa {
 				//ANDA COM O VETOR PARA A DIREITA PARA VERIFICAR SE EXISTE OUTRO ELEMENTO COM O MESMO CPF
 				i = meio +1;
 				while ( (i < _items.length) && (Long.parseLong(_cpf) == _items[i].getCpfLong()) ){
-					cpfEncontrado += _items[meio].getData() + ";"
-							+_items[meio].getValor() + ";";
+					cpfEncontrado += _items[meio].getData() + "\t"
+							+ _items[meio].getValor() + "\r\n";
 					total += _items[meio].getValor();
 					i++;
 				}
-				cpfEncontrado += total;
+				cpfEncontrado += "TOTAL: " + total;
 				return cpfEncontrado;
 			
 			} else {
