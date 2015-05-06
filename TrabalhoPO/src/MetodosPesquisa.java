@@ -33,18 +33,18 @@ public class MetodosPesquisa {
 				//ANDA COM O VETOR PARA A ESQUERDA PARA VERIFICAR SE EXISTE OUTRO ELEMENTO COM O MESMO CPF
 				i = meio -1;
 				while ( (i >= 0) && (Long.parseLong(_cpf) == _items[i].getCpfLong()) ){
-					cpfEncontrado += _items[meio].getData() + "\t"
-							+ _items[meio].getValor() + "\r\n";
-					total += _items[meio].getValor();
+					cpfEncontrado += _items[i].getData() + "\t"
+							+ _items[i].getValor() + "\r\n";
+					total += _items[i].getValor();
 					i--;
 				}
 				
 				//ANDA COM O VETOR PARA A DIREITA PARA VERIFICAR SE EXISTE OUTRO ELEMENTO COM O MESMO CPF
 				i = meio +1;
 				while ( (i < _items.length) && (Long.parseLong(_cpf) == _items[i].getCpfLong()) ){
-					cpfEncontrado += _items[meio].getData() + "\t"
-							+ _items[meio].getValor() + "\r\n";
-					total += _items[meio].getValor();
+					cpfEncontrado += _items[i].getData() + "\t"
+							+ _items[i].getValor() + "\r\n";
+					total += _items[i].getValor();
 					i++;
 				}
 				cpfEncontrado += "TOTAL: " + total;
