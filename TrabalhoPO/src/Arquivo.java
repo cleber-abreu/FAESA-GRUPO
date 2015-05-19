@@ -13,7 +13,7 @@ public class Arquivo {
 	
 	public static void ler(Item[] vetorDados, String arquivo) {
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo)));
+			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo + ".txt")));
 			String linha = "";
 			String campo[];
 			int i = 0;
@@ -33,7 +33,7 @@ public class Arquivo {
 	
 	public static void gravar(Item[] vetorDados, String arquivo) {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo)));
+			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
 			for (int i = 0; i < vetorDados.length; i++) {
 				out.write(vetorDados[i].getCpf() + ";" 
 						+ vetorDados[i].getNome() + ";" 
@@ -69,7 +69,7 @@ public class Arquivo {
 	
 	public static void gravarCpf(String[] vetorCpf, String arquivo) {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo)));
+			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
 			for (int i = 0; i < vetorCpf.length; i++) {
 				out.write(vetorCpf[i]);
 				out.newLine();
@@ -82,6 +82,42 @@ public class Arquivo {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void ler(ArvoreABB arv, String arquivo) {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo + ".txt")));
+			String linha = "";
+			String campo[];
+			
+			while ((linha = in.readLine()) != null) {
+				campo = linha.split(";");
+				arv.insere(new Item(campo[0], campo[1], campo[2], campo[3]));
+			}
+			
+			in.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void ler(ArvoreAVL arv, String arquivo) {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo + ".txt")));
+			String linha = "";
+			String campo[];
+			
+			while ((linha = in.readLine()) != null) {
+				campo = linha.split(";");
+				arv.insereRaiz(new Item(campo[0], campo[1], campo[2], campo[3]));
+			}
+			
+			in.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
