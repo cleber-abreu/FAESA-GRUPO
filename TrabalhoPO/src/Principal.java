@@ -17,6 +17,10 @@ public class Principal {
 		for (int j = 0; j < tamanhos.length; j++) {
 			for (int k = 0; k < tipos.length; k++) {
 				for (int l = 0; l < 1; l++) {
+					
+					/*
+					 * QUICK SORT
+					 */
 					vetorDados = new Item[tamanhos[j]];
 					tempoInicial = System.nanoTime();
 					
@@ -32,34 +36,68 @@ public class Principal {
 
 					Arquivo.gravar(vetorDados, nomeArquivo);
 					
-					System.out.println("TEMPO"
-							+ "\nCarrega dados : " + tempoCarrega
-							+ "\nOrdena        : " + tempoOrdena
-							+ "\nTotal         : " + tempoTotal);
-						
+					System.out.println("\nQUICK SORT"
+							+ "\nCarregar dados : " + tempoCarrega
+							+ "\nOrdenação      : " + tempoOrdena
+							+ "\nTotal          : " + tempoTotal);
+					
+					/*
+					 * ABB
+					 */
+					nomeArquivo = "cliente"+tamanhos[0]+tipos[0];
+					tempoInicial = System.nanoTime();
+					ArvoreABB abb = new ArvoreABB();
+					Arquivo.ler(abb, nomeArquivo);
+					tempoCarrega = System.nanoTime() - tempoInicial;
+					
+					abb.arvBalanceada();
+					tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
+					
+					Arquivo.gravar( abb.camCentral(), "ABB-"+ tamanhos[0]);
+					tempoTotal = System.nanoTime() - tempoInicial;
+					
+					System.out.println("\nABB"
+							+ "\nCarregar dados : " + tempoCarrega
+							+ "\nBalanceamento  : " + tempoOrdena
+							+ "\nTotal          : " + tempoTotal);
+					
+					/*
+					 * AVL
+					 */
+					tempoInicial = System.nanoTime();
+					ArvoreAVL avl = new ArvoreAVL();
+					Arquivo.ler(avl, nomeArquivo);
+					tempoCarrega = System.nanoTime() - tempoInicial;
+					
+					Arquivo.gravar(avl.vetorOrdenado(), "AVL");
+					tempoTotal = System.nanoTime() - tempoInicial;
+					
+					System.out.println("\nAVL"
+							+ "\nCarregar dados : " + tempoCarrega
+							+ "\nTotal          : " + tempoTotal);
 				}
 			}
 		}
-		//problema com ABB: estouro de pilha; pesquisar sobre como aumentar memória ou outra opção;
-		//retornaListaItensCPF(vetorDados,retornaVetorCPF());
+		
+		/*
+		 * PESQUISA BINÁRIA EM 200 CPFs
+		 */
+		tempoInicial = System.nanoTime();
+		
 		String[] cpf = new String[200];
 		Arquivo.lerCpf(cpf);
+		tempoCarrega = System.nanoTime() - tempoInicial;
+		
 		MetodosPesquisa.pesqBinaria(vetorDados, cpf);
+		tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
 		
-		// balanceamento e caminhamento central não funcionando 
-		nomeArquivo = "cliente"+tamanhos[0]+tipos[0];
-		ArvoreABB abb = new ArvoreABB();
-		Arquivo.ler(abb, nomeArquivo);
-		abb.arvBalanceada();
-		Item[] vetorABB = abb.camCentral();
-		for (int i = 0; i < vetorABB.length; i++) {
-			System.out.println(vetorABB[i].getCpf());
-		}
+		tempoTotal = System.nanoTime() - tempoInicial;
 		
-		// Falta implementar avl.vetorOrdenado()
-		ArvoreAVL avl = new ArvoreAVL();
-		Arquivo.ler(avl, nomeArquivo);
-		Arquivo.gravar(avl.vetorOrdenado(), "AVL");
+		System.out.println("\nPESQUISA BINÁRIA EM 200 CPFs"
+				+ "\nCarregar dados : " + tempoCarrega
+				+ "\nOrdenação      : " + tempoOrdena
+				+ "\nTotal          : " + tempoTotal);
+		
 	}
 	
 	public static void imprimeVetorDados(){

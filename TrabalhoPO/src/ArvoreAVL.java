@@ -1,14 +1,17 @@
 public class ArvoreAVL {
 	private No raiz;
 	private boolean h;
+	private int quantNos;
 
 	public ArvoreAVL() {
 		this.raiz = null;
 		this.h = true;
+		this.quantNos = 0;
 	}
 
 	public void insereRaiz(Item elem) {
 		this.raiz = this.insere(elem, this.raiz);
+		this.quantNos++;
 	}
 
 	private No insere(Item elem, No no) {
@@ -17,7 +20,7 @@ public class ArvoreAVL {
 			this.h = true;
 			return novo;
 		} else {
-			if (elem.getCpfLong() < no.getInfo().getCpfLong()) {
+			if (elem.getCpfLong() <= no.getInfo().getCpfLong()) {
 				// Insere à esquerda e verifica se precisa balancear à direita
 				no.setEsq(this.insere(elem, no.getEsq()));
 				no = this.balancearDir(no);
@@ -126,10 +129,22 @@ public class ArvoreAVL {
 	}
 	
 	public Item[] vetorOrdenado() {
-		Item[] vet = null;
-		/*
-		 *  Falta implementar
-		 */
+		Item[] vet = new Item[this.quantNos];
+		int[] i = new int[1];
+		i[0] = 0;
+		vetorOrdenado(this.raiz, vet, i);
+		
 		return vet;
+	}
+
+	private void vetorOrdenado(No no, Item[] vet, int[] i) {
+		if (no == null) {
+			return;
+		}
+		vetorOrdenado(no.getEsq(), vet, i);
+		//System.out.println(i[0] +" - "+ no.getInfo().getCpf());
+		vet[i[0]] = no.getInfo();
+		i[0]++;
+		vetorOrdenado(no.getDir(), vet, i);
 	}
 }
