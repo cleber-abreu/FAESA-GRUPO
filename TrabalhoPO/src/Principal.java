@@ -2,8 +2,7 @@
 
 public class Principal {
 	private static Item[] vetorDados;
-	private static MetodosOrdenacao metodos = new MetodosOrdenacao();
-	
+
 	public static void main(String[] args) {
 		long tempoInicial = 0;// = System.currentTimeMillis();
 		long tempoCarrega = 0, tempoOrdena = 0, tempoTotal = 0, tempoPesquisa = 0;
@@ -12,8 +11,8 @@ public class Principal {
 		boolean primeiroLoop;
 		long tempoVetorQS = 0, tempoVetorQI = 0, tempoABB = 0, tempoAVL = 0, tempoHash = 0;
 		
-		//String[] tipos = {"alea","ord","inv"};
 		String[] tipos = {"alea","ord","inv"};
+		//String[] tipos = {"alea"};
 		String nomeArquivo = "";
 		String[] cpf;
 		//int[] tamanhos = {500,1000,5000,10000,50000};
@@ -33,7 +32,7 @@ public class Principal {
 					nomeArquivo = "cliente"+tamanhos[j]+tipos[k];
 					Arquivo.ler(vetorDados, nomeArquivo);
 					
-					metodos.quicksort(vetorDados);
+					MetodosOrdenacao.quicksort(vetorDados);
 					Arquivo.gravar(vetorDados, nomeArquivo);
 
 					cpf = new String[200];
@@ -45,7 +44,7 @@ public class Principal {
 					//Se não for o primeiro loop, começa a grava o tempo gasto, foi feito isso porque o tempo gasto 
 					//para ler o arquivo na primeira vez é maior;  
 					if (!primeiroLoop) {
-						System.out.println("Total Quick: "+tempoTotal);
+						//System.out.println("Total Quick: "+tempoTotal);
 						tempoVetorQS += tempoTotal;
 					}
 					
@@ -56,25 +55,27 @@ public class Principal {
 					nomeArquivo = "cliente"+tamanhos[j]+tipos[k];
 					Arquivo.ler(vetorDados, nomeArquivo);
 					
-					metodos.quickInsert(vetorDados);
+					MetodosOrdenacao.quickInsert(vetorDados);
 					Arquivo.gravar(vetorDados, nomeArquivo);
 
 					cpf = new String[200];
-					Arquivo.lerCpf(cpf); //A gravação do arquivo cpf é feita diretamente no método "Arquivo.lerCpf"
+					Arquivo.lerCpf(cpf); 
 					
 					MetodosPesquisa.pesqBinaria(vetorDados, cpf);
+					//A gravação do arquivo cpf é feita diretamente no método "MetodosPesquisa.pesqBinaria"
 
 					tempoTotal = System.currentTimeMillis() - tempoInicial;
 					
 					//Se não for o primeiro loop, começa a grava o tempo gasto, foi feito isso porque o tempo gasto 
 					//para ler o arquivo na primeira vez é maior;  
 					if (!primeiroLoop) {
-						System.out.println("Total Quick Insert: "+tempoTotal);
+						//System.out.println("Total Quick Insert: "+tempoTotal);
 						tempoVetorQI += tempoTotal;
 					}
 					
 					/* ABB */
-					nomeArquivo = "cliente"+tamanhos[0]+tipos[0];
+					//problema com ABB: estouro de pilha; pesquisar sobre como aumentar memoria ou outra opção;
+					nomeArquivo = "cliente"+tamanhos[j]+tipos[k];
 					tempoInicial = System.currentTimeMillis();
 					abb = new ArvoreABB();
 					Arquivo.ler(abb, nomeArquivo);
@@ -83,7 +84,7 @@ public class Principal {
 					abb.arvBalanceada();
 					//tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
 					
-					Arquivo.gravar( abb.camCentral(), "ABB-"+ tamanhos[0]);
+					Arquivo.gravar( abb.camCentral(), "ABB-"+tamanhos[j]+tipos[k]);
 					tempoTotal = System.currentTimeMillis() - tempoInicial;
 					if (!primeiroLoop) tempoABB += tempoTotal;
 					
@@ -109,41 +110,17 @@ public class Principal {
 
 					*/
 					
-					primeiroLoop = false;
+					/* HASHING */
 					
+					primeiroLoop = false;
 				}
-				//System.out.println(tamanhos[j]+" - "+ tipos[k]+ " - Total Vetor Quick: " +(tempoVetorQS));
-				System.out.println(tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick: " +(tempoVetorQS/5));
-				//System.out.println(tamanhos[j]+" - "+ tipos[k]+ " - Total Vetor Quick Insert: " +(tempoVetorQI));
-				System.out.println(tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick Insert: " +(tempoVetorQI/5));
-				//System.out.println(tamanhos[j]+" - "+ tipos[k]+ " - Total ABB: " +(tempoABB));
-				System.out.println(tamanhos[j]+" - "+ tipos[k]+ " - Média ABB: " +(tempoABB/5));
-				//System.out.println(tamanhos[j]+" - "+ tipos[k]+ " - Média AVL: " +(tempoAVL/5));
+				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick: " +(tempoVetorQS/5));
+				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick Insert: " +(tempoVetorQI/5));
+				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média ABB: " +(tempoABB/5));
 			}
 		}
+		System.out.println("FIM! =)");
 		
-		
-		/*
-		 * PESQUISA BINÁRIA EM 200 CPFs
-		 */
-		
-		/*
-		tempoInicial = System.nanoTime();
-		
-		String[] cpf = new String[200];
-		Arquivo.lerCpf(cpf);
-		tempoCarrega = System.nanoTime() - tempoInicial;
-		
-		MetodosPesquisa.pesqBinaria(vetorDados, cpf);
-		tempoOrdena = System.nanoTime() - tempoInicial - tempoCarrega;
-		
-		tempoTotal = System.nanoTime() - tempoInicial;
-		
-		System.out.println("\nPESQUISA BINÁRIA EM 200 CPFs"
-				+ "\nCarregar dados : " + tempoCarrega
-				+ "\nOrdenação      : " + tempoOrdena
-				+ "\nTotal          : " + tempoTotal);
-		*/
 	}
 	
 	public static void imprimeVetorDados(){

@@ -7,7 +7,6 @@ public class MetodosPesquisa {
 		for (int i = 0; i < 200; i++) {
 			linha[i] = pesqBinaria(dados, cpf[i]);
 		}
-		
 		Arquivo.gravarCpf(linha, "cpf");
 		
 	}
