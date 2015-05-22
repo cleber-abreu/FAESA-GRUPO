@@ -1,11 +1,11 @@
 
 public class MetodosOrdenacao {
 	
-	public void quicksort (Item[] _lista) {
+	public static void quicksort (Item[] _lista) {
 		ordena (0, _lista.length-1, _lista);
 	}
 	
-	private void ordena (int esq, int dir, Item[] _lista) {
+	private static void ordena (int esq, int dir, Item[] _lista) {
 		int i = esq, j = dir;
 		long pivo;
 		Item temp;
@@ -35,11 +35,11 @@ public class MetodosOrdenacao {
 		}
 	}
 	
-	public void quickInsert (Item[] _lista) {
+	public static void quickInsert (Item[] _lista) {
 		quickInsert (_lista, 0, _lista.length-1);
 	}
 	
-	private void quickInsert (Item[] _lista, int esq, int dir) {
+	private static void quickInsert (Item[] _lista, int esq, int dir) {
 		int i = esq, j = dir;
         Item tmp;
         Long pivot = _lista[(i+j)/2].getCpfLong();

@@ -1,15 +1,12 @@
 
 public class MetodosPesquisa {
 	
-	public static void pesqBinaria(Item[] dados, String[] cpf) {
+	public static String[] pesqBinaria(Item[] dados, String[] cpf) {
 		String[] linha = new String[200];
-		
 		for (int i = 0; i < 200; i++) {
 			linha[i] = pesqBinaria(dados, cpf[i]);
 		}
-		
-		Arquivo.gravarCpf(linha, "cpf");
-		
+		return linha;
 	}
 	
 	private static String pesqBinaria (Item[] _items, String _cpf) {

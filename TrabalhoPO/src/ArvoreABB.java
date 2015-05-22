@@ -7,25 +7,44 @@ public class ArvoreABB {
 		this.raiz = null;
 		this.quantNos = 0;
 	}
-
-	public boolean pesquisa(long chave) {
-		No temp = this.pesquisa(chave, this.raiz);
-
-		if (temp != null)
-			return true;
-		else
-			return false;
+	
+	public String[] pesquisa(String[] cpfs) {
+		String[] linha = new String[200];
+		for (int i = 0; i < cpfs.length; i++) {
+			linha[i] = this.pesquisa(Long.parseLong(cpfs[i]), this.raiz, 0.0);
+			if (linha[i].isEmpty()) {
+				linha[i] = cpfs[i]  + " - CPF INEXISTENTE";
+			}
+		}
+		return linha;
 	}
 
-	private No pesquisa(long chave, No no) {
-		No temp = no;
-		if (temp != null) {
-			if (chave < temp.getInfo().getCpfLong())
-				temp = this.pesquisa(chave, temp.getEsq());
-			else if (chave > temp.getInfo().getCpfLong())
-				temp = this.pesquisa(chave, temp.getDir());
+	private String pesquisa(long chave, No no, double total) {
+		String str = "";
+		if (no != null) {
+			if (chave < no.getInfo().getCpfLong())
+				str = this.pesquisa(chave, no.getEsq(), total);
+			else if (chave > no.getInfo().getCpfLong())
+				str = this.pesquisa(chave, no.getDir(), total);
+			else {
+				if (total == 0) {
+					str += no.getInfo().getCpf() + "; "
+							+ no.getInfo().getNome() + "; "
+							+ no.getInfo().getData() + "; "
+							+ no.getInfo().getValor() + "; ";
+					total = no.getInfo().getValor();
+				}
+				else {
+					str += no.getInfo().getData() + "; "
+							+ no.getInfo().getValor() + "; ";
+					total += no.getInfo().getValor();
+				}
+				return str + this.pesquisa(chave, no.getEsq(), total);
+			}
 		}
-		return temp;
+		else if (total > 0)
+			str += " TOTAL: "+total;
+		return str;
 	}
 
 	public void insere(Item elem) {

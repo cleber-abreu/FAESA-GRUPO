@@ -31,59 +31,6 @@ public class Arquivo {
 		}
 	}
 	
-	public static void gravar(Item[] vetorDados, String arquivo) {
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
-			for (int i = 0; i < vetorDados.length; i++) {
-				out.write(vetorDados[i].getCpf() + ";" 
-						+ vetorDados[i].getNome() + ";" 
-						+ vetorDados[i].getData() + ";" 
-						+ vetorDados[i].getValor());
-				out.newLine();
-			}
-			out.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public static void lerCpf(String[] VetorCPF) {
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(ENTRADA + "cpf.txt"));
-			String linha = "";
-			int i = 0;
-			
-			while ((linha = in.readLine()) != null) {
-				VetorCPF[i] = linha;
-				i++;
-			}
-			in.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void gravarCpf(String[] vetorCpf, String arquivo) {
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
-			for (int i = 0; i < vetorCpf.length; i++) {
-				out.write(vetorCpf[i]);
-				out.newLine();
-				out.newLine();
-			}
-			out.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
 	public static void ler(ArvoreABB arv, String arquivo) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo + ".txt")));
@@ -118,6 +65,59 @@ public class Arquivo {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void ler(String[] VetorCPF) {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(ENTRADA + "cpf.txt"));
+			String linha = "";
+			int i = 0;
+			
+			while ((linha = in.readLine()) != null) {
+				VetorCPF[i] = linha;
+				i++;
+			}
+			in.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void gravar(Item[] vetorDados, String arquivo) {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
+			for (int i = 0; i < vetorDados.length; i++) {
+				out.write(vetorDados[i].getCpf() + ";" 
+						+ vetorDados[i].getNome() + ";" 
+						+ vetorDados[i].getData() + ";" 
+						+ vetorDados[i].getValor());
+				out.newLine();
+			}
+			out.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void gravar(String[] vetorCpf, String arquivo) {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
+			for (int i = 0; i < vetorCpf.length; i++) {
+				out.write(vetorCpf[i]);
+				out.newLine();
+				out.newLine();
+			}
+			out.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
