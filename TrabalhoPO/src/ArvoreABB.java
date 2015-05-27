@@ -1,6 +1,6 @@
 public class ArvoreABB {
 
-	private No raiz;
+	private NoArvore raiz;
 	private int quantNos;
 
 	public ArvoreABB() {
@@ -8,24 +8,40 @@ public class ArvoreABB {
 		this.quantNos = 0;
 	}
 
-	public boolean pesquisa(long chave) {
-		No temp = this.pesquisa(chave, this.raiz);
-
-		if (temp != null)
-			return true;
-		else
-			return false;
+	public String[] pesquisa(String[] cpfs) {
+		String[] linha = new String[200];
+		for (int i = 0; i < cpfs.length; i++) {
+			linha[i] = this.pesquisa(Long.parseLong(cpfs[i]), this.raiz);
+			if (linha[i].isEmpty()) {
+				linha[i] = cpfs[i] + " - CPF INEXISTENTE";
+			}
+		}
+		return linha;
 	}
 
-	private No pesquisa(long chave, No no) {
-		No temp = no;
-		if (temp != null) {
-			if (chave < temp.getInfo().getCpfLong())
-				temp = this.pesquisa(chave, temp.getEsq());
-			else if (chave > temp.getInfo().getCpfLong())
-				temp = this.pesquisa(chave, temp.getDir());
+	private String pesquisa(long cpf, NoArvore no) {
+		String str = "";
+		double total = 0;
+		if (no != null) {
+			if (cpf < no.getInfo().getCpfLong())
+				str = this.pesquisa(cpf, no.getEsq());
+			else if (cpf > no.getInfo().getCpfLong())
+				str = this.pesquisa(cpf, no.getDir());
+			else {
+				str = no.toString();
+				total = no.getInfo().getValor();
+				if (no.getRepetido() != null) {
+					No repetidos = no.getRepetido();
+					while (repetidos != null) {
+						str += repetidos.getCompra();
+						total += repetidos.getInfo().getValor();
+						repetidos = repetidos.getProx();
+					}
+				}
+				str += "TOTAL: " + total;
+			}
 		}
-		return temp;
+		return str;
 	}
 
 	public void insere(Item elem) {
@@ -34,17 +50,27 @@ public class ArvoreABB {
 
 	}
 
-	private No insere(Item elem, No no) {
-		No novo;
+	private NoArvore insere(Item elem, NoArvore no) {
+		NoArvore novo;
 		if (no == null) {
-			novo = new No(elem);
+			novo = new NoArvore(elem);
 			return novo;
-		} else if (elem.getCpfLong() <= no.getInfo().getCpfLong()) {
-			no.setEsq(this.insere(elem, no.getEsq()));
-			return no;
 		} else {
-			no.setDir(this.insere(elem, no.getDir()));
-			return no;
+			if (elem.getCpfLong() < no.getInfo().getCpfLong()) {
+				no.setEsq(this.insere(elem, no.getEsq()));
+				return no;
+			} else if (elem.getCpfLong() > no.getInfo().getCpfLong()) {
+				no.setDir(this.insere(elem, no.getDir()));
+				return no;
+			}
+			// Inserir CPF repetido
+			else {
+				if (no.getRepetido() == null)
+					no.setRep(new No(elem));
+				else
+					no.getRepetido().setProx(new No(elem));
+				return no;
+			}
 		}
 	}
 
@@ -55,16 +81,24 @@ public class ArvoreABB {
 		return (this.fazCamCentral(this.raiz, vetOrdenado, i));
 	}
 
-	private Item[] fazCamCentral(No arv, Item[] vetOrdenado, int[] i) {
+	private Item[] fazCamCentral(NoArvore arv, Item[] vetOrdenado, int[] i) {
 		if (arv != null) {
 			vetOrdenado = this.fazCamCentral(arv.getEsq(), vetOrdenado, i);
 			vetOrdenado[i[0]] = arv.getInfo();
 			i[0]++;
+			if (arv.getRepetido() != null) {
+				No reptidos = arv.getRepetido();
+				while (reptidos != null) {
+					vetOrdenado[i[0]] = reptidos.getInfo();
+					i[0]++;
+					reptidos = reptidos.getProx();
+				}
+			}
 			vetOrdenado = fazCamCentral(arv.getDir(), vetOrdenado, i);
 		}
 		return vetOrdenado;
 	}
-
+	
 	public ArvoreABB arvBalanceada() {
 		ArvoreABB temp = new ArvoreABB();
 		Item[] vetOrdenado = camCentral();
@@ -76,9 +110,11 @@ public class ArvoreABB {
 		int meio;
 		if (fim >= ini) {
 			meio = (ini + fim) / 2;
-			temp.insere(vetOrdenado[meio]);
-			this.balancear(vetOrdenado, temp, ini, meio - 1);
-			this.balancear(vetOrdenado, temp, meio + 1, fim);
+			if (vetOrdenado[meio] != null) {
+				temp.insere(vetOrdenado[meio]);
+				this.balancear(vetOrdenado, temp, ini, meio - 1);
+				this.balancear(vetOrdenado, temp, meio + 1, fim);
+			}
 		}
 	}
 }

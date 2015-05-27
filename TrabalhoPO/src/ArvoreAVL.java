@@ -1,5 +1,6 @@
 public class ArvoreAVL {
-	private No raiz;
+
+	private NoArvore raiz;
 	private boolean h;
 	private int quantNos;
 
@@ -14,9 +15,9 @@ public class ArvoreAVL {
 		this.quantNos++;
 	}
 
-	private No insere(Item elem, No no) {
+	private NoArvore insere(Item elem, NoArvore no) {
 		if (no == null) {
-			No novo = new No(elem);
+			NoArvore novo = new NoArvore(elem);
 			this.h = true;
 			return novo;
 		} else {
@@ -34,7 +35,7 @@ public class ArvoreAVL {
 		}
 	}
 
-	private No balancearDir(No no) {
+	private NoArvore balancearDir(NoArvore no) {
 		if (this.h) {
 			switch (no.getFatorBalanceamento()) {
 			case 1:
@@ -45,13 +46,13 @@ public class ArvoreAVL {
 				no.setFatorBalanceamento((byte) -1);
 				break;
 			case -1:
-				no = this.rotaçãoDireita(no);
+				no = this.rotacaoDireita(no);
 			}
 		}
 		return no;
 	}
 
-	private No balancearEsq(No no) {
+	private NoArvore balancearEsq(NoArvore no) {
 		if (this.h) {
 			switch (no.getFatorBalanceamento()) {
 			case -1:
@@ -62,14 +63,14 @@ public class ArvoreAVL {
 				no.setFatorBalanceamento((byte) 1);
 				break;
 			case 1:
-				no = this.rotaçãoEsquerda(no);
+				no = this.rotacaoEsquerda(no);
 			}
 		}
 		return no;
 	}
 
-	private No rotaçãoDireita(No no) {
-		No temp1, temp2;
+	private NoArvore rotacaoDireita(NoArvore no) {
+		NoArvore temp1, temp2;
 		temp1 = no.getEsq();
 		if (temp1.getFatorBalanceamento() == -1) {
 			no.setEsq(temp1.getDir());
@@ -99,8 +100,8 @@ public class ArvoreAVL {
 		return no;
 	}
 
-	private No rotaçãoEsquerda(No no) {
-		No temp1, temp2;
+	private NoArvore rotacaoEsquerda(NoArvore no) {
+		NoArvore temp1, temp2;
 		temp1 = no.getDir();
 		if (temp1.getFatorBalanceamento() == 1) {
 			no.setDir(temp1.getEsq());
@@ -137,7 +138,7 @@ public class ArvoreAVL {
 		return vet;
 	}
 
-	private void vetorOrdenado(No no, Item[] vet, int[] i) {
+	private void vetorOrdenado(NoArvore no, Item[] vet, int[] i) {
 		if (no == null) {
 			return;
 		}

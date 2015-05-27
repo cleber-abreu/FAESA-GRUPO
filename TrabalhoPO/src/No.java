@@ -1,38 +1,44 @@
+
 public class No {
 	private Item info;
-	private No esq, dir;
-	private byte fatorBalanceamento;
-
-	public No(Item i) {
-		this.info = i;
-		this.fatorBalanceamento = 0;
+	private No prox;
+	
+	public No() {
+		
+	}
+	
+	public No(Item info) {
+		this.info = info;
 	}
 
-	public No getDir() {
-		return this.dir;
+	public No getProx() {
+		return prox;
 	}
-
-	public void setDir(No dir) {
-		this.dir = dir;
-	}
-
-	public No getEsq() {
-		return this.esq;
-	}
-
-	public void setEsq(No esq) {
-		this.esq = esq;
-	}
-
-	public byte getFatorBalanceamento() {
-		return this.fatorBalanceamento;
-	}
-
-	public void setFatorBalanceamento(byte fatorBalanceamento) {
-		this.fatorBalanceamento = fatorBalanceamento;
+	
+	public void setProx(No prox) {
+		this.prox = prox;
 	}
 
 	public Item getInfo() {
-		return this.info;
+		return info;
 	}
+
+	public void setInfo(Item info) {
+		this.info = info;
+	}
+	
+	// para usar no retorno de repetidos
+	public String getCompra() {
+		return this.getInfo().getData() + "\t-\t "
+				+ this.getInfo().getValor() + "\r\n";
+	}
+	
+	@Override
+	public String toString() {
+		return this.getInfo().getCpf() + "; "
+				+ this.getInfo().getNome() + "; "
+				+ this.getInfo().getData() + "; "
+				+ this.getInfo().getValor() + "; ";
+	}
+	
 }
