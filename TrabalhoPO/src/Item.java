@@ -4,17 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class Dados {
+public class Item {
 	private String nome;
 	private String cpf;
 	private Date data;
 	private double valor;
+	private DateFormat formato = new SimpleDateFormat("dd/MM/yy");
 	
-	public Dados() {
+	public Item() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Dados(String cpf, String nome, Date data, double valor) {
+	public Item(String cpf, String nome, Date data, double valor) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
@@ -22,13 +23,17 @@ public class Dados {
 		this.valor = valor;
 	}
 	
-	public Dados(String cpf, String nome, String data, String valor) throws ParseException {
+	public Item(String cpf, String nome, String data, String valor) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
-		DateFormat formato = new SimpleDateFormat("dd/MM/yy");
-		this.data = (Date)formato.parse(data);
 		this.valor = Double.parseDouble(valor);
+		
+		try {
+			this.data = (Date)formato.parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getNome() {
@@ -43,12 +48,16 @@ public class Dados {
 		return cpf;
 	}
 	
+	public long getCpfLong() {
+		return Long.parseLong(cpf);
+	}
+	
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	
 	public String getData() {
-		return data.toString();
+		return formato.format(data);
 	}
 	
 	public void setData(Date data) {

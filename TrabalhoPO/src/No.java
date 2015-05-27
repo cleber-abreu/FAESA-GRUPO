@@ -1,14 +1,13 @@
 
 public class No {
-	private Dados info;
+	private Item info;
 	private No prox;
-	private No ant;
 	
 	public No() {
 		
 	}
 	
-	public No(Dados info) {
+	public No(Item info) {
 		this.info = info;
 	}
 
@@ -20,20 +19,26 @@ public class No {
 		this.prox = prox;
 	}
 
-	public No getAnt() {
-		return ant;
-	}
-
-	public void setAnt(No ant) {
-		this.ant = ant;
-	}
-
-	public Dados getInfo() {
+	public Item getInfo() {
 		return info;
 	}
 
-	public void setInfo(Dados info) {
+	public void setInfo(Item info) {
 		this.info = info;
+	}
+	
+	// para usar no retorno de repetidos
+	public String getCompra() {
+		return this.getInfo().getData() + "\t-\t "
+				+ this.getInfo().getValor() + "\r\n";
+	}
+	
+	@Override
+	public String toString() {
+		return this.getInfo().getCpf() + "; "
+				+ this.getInfo().getNome() + "; "
+				+ this.getInfo().getData() + "; "
+				+ this.getInfo().getValor() + "; ";
 	}
 	
 }
