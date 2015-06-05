@@ -143,6 +143,7 @@ public class ArvoreAVL {
 	}
 
 	public Item[] vetorOrdenado() {
+		//TEM A MESMA FUNÇÃO DO CAMCENTRAL
 		Item[] vet = new Item[this.quantNos];
 		int[] i = new int[1];
 		i[0] = 0;
@@ -167,5 +168,41 @@ public class ArvoreAVL {
 			}
 		}
 		vetorOrdenado(no.getDir(), vet, i);
+	}
+	
+	public String[] pesquisa(String[] cpfs) {
+		String[] linha = new String[200];
+		for (int i = 0; i < cpfs.length; i++) {
+			linha[i] = this.pesquisa(Long.parseLong(cpfs[i]), this.raiz);
+			if (linha[i].isEmpty()) {
+				linha[i] = cpfs[i] + " - CPF INEXISTENTE";
+			}
+		}
+		return linha;
+	}
+
+	private String pesquisa(long cpf, NoArvore no) {
+		String str = "";
+		double total = 0;
+		if (no != null) {
+			if (cpf < no.getInfo().getCpfLong())
+				str = this.pesquisa(cpf, no.getEsq());
+			else if (cpf > no.getInfo().getCpfLong())
+				str = this.pesquisa(cpf, no.getDir());
+			else {
+				str = no.toString();
+				total = no.getInfo().getValor();
+				if (no.getRepetido() != null) {
+					No repetidos = no.getRepetido();
+					while (repetidos != null) {
+						str += repetidos.getCompra();
+						total += repetidos.getInfo().getValor();
+						repetidos = repetidos.getProx();
+					}
+				}
+				str += "TOTAL: " + total;
+			}
+		}
+		return str;
 	}
 }
