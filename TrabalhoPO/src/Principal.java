@@ -1,10 +1,9 @@
 
-
 public class Principal {
 	private static Item[] vetorDados;
 
 	public static void main(String[] args) {
-		long tempoInicial = 0, tempoTotal = 0;;// = System.currentTimeMillis();
+		long tempoInicial = 0, tempoTotal = 0;
 		ArvoreABB abb;
 		ArvoreAVL avl;
 		boolean primeiroLoop;
@@ -14,8 +13,8 @@ public class Principal {
 		//String[] tipos = {"alea"};
 		String nomeArquivo = "";
 		String[] cpf;
-		//int[] tamanhos = {500,1000,5000,10000,50000};
-		int[] tamanhos = {500, 1000, 5000};
+		int[] tamanhos = {500,1000,5000,10000,50000};
+//		int[] tamanhos = {500, 1000, 5000};
 		
 		for (int j = 0; j < tamanhos.length; j++) {
 			for (int k = 0; k < tipos.length; k++) {
@@ -74,10 +73,13 @@ public class Principal {
 					tempoInicial = System.currentTimeMillis();
 					abb = new ArvoreABB();
 					Arquivo.ler(abb, nomeArquivo);
-					abb.arvBalanceada();
 					
-					Arquivo.gravar(abb.camCentral(), "ABB-"+tamanhos[j]+tipos[k]);
-					Arquivo.gravar(abb.pesquisa(cpf), "ABB-PESQ-"+ tamanhos[j]+tipos[k]);
+					abb.arvBalanceada();
+					Item[] dados = abb.camCentral();
+					Arquivo.gravar(dados, "ABB-"+tamanhos[j]+tipos[k]);
+					
+					String[] pesq = abb.pesquisa(cpf);
+					Arquivo.gravar(pesq, "ABB-PESQ-"+ tamanhos[j]+tipos[k]);
 					
 					tempoTotal = System.currentTimeMillis() - tempoInicial;
 					
@@ -85,20 +87,16 @@ public class Principal {
 					
 					
 					/* AVL */
-					/*
-					tempoInicial = System.nanoTime();
+					tempoInicial = System.currentTimeMillis();
 					avl = new ArvoreAVL();
 					Arquivo.ler(avl, nomeArquivo);
-					tempoCarrega = System.nanoTime() - tempoInicial;
 					
-					Arquivo.gravar(avl.vetorOrdenado(), "AVL");
-					tempoTotal = System.nanoTime() - tempoInicial;
-					if (!primeiroLoop) tempoAVL += tempoTotal;
-					System.out.println("\nAVL"
-							+ "\nCarregar dados : " + tempoCarrega
-							+ "\nTotal          : " + tempoTotal);
+					Arquivo.gravar(avl.vetorOrdenado(), "AVL-"+tamanhos[j]+tipos[k]);
+					
+					tempoTotal = System.currentTimeMillis() - tempoInicial;
 
-					*/
+					if (!primeiroLoop) tempoAVL += tempoTotal;
+
 					
 					/* HASHING */
 					
@@ -107,23 +105,10 @@ public class Principal {
 				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick: " +(tempoVetorQS/5));
 				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick Insert: " +(tempoVetorQI/5));
 				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média ABB: " +(tempoABB/5));
+				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média AVL: " +(tempoAVL/5));
 			}
 		}
 		System.out.println("FIM! =)");
-		
-	}
-	
-	public static void imprimeVetorDados(){
-		String mostraVetor = "\n";
-		for (int i = 0; i < vetorDados.length; i++) {
-			mostraVetor += vetorDados[i].getCpf() + " \t-\t" 
-					+ vetorDados[i].getNome() + " \t-\t" 
-					+ vetorDados[i].getData() + " \t-\t" 
-					+ vetorDados[i].getValor() + "\n";
-		}
-		System.out.println(mostraVetor);
-		
-		
 		
 	}
 	

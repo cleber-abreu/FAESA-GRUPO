@@ -31,37 +31,17 @@ public class Arquivo {
 		}
 	}
 	
-	public static void ler(ListaEnc dados, String arquivo) {
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo + ".txt")));
-			String linha = "";
-			String campo[];
-			
-			while ((linha = in.readLine()) != null) {
-				campo = linha.split(";");
-				dados.insereUltimo(new Item(campo[0], campo[1], campo[2], campo[3]));
-			}
-			
-			in.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static void ler(ArvoreABB arv, String arquivo) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo + ".txt")));
 			String linha = "";
 			String campo[];
-			
+
 			while ((linha = in.readLine()) != null) {
 				campo = linha.split(";");
 				arv.insere(new Item(campo[0], campo[1], campo[2], campo[3]));
 			}
-			
 			in.close();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,30 +65,15 @@ public class Arquivo {
 		}
 	}
 	
-	public static void ler(String[] VetorCPF) {
+	public static void ler(String[] vetorCPF) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(ENTRADA + "cpf.txt"));
 			String linha = "";
 			int i = 0;
 			
 			while ((linha = in.readLine()) != null) {
-				VetorCPF[i] = linha;
+				vetorCPF[i] = linha;
 				i++;
-			}
-			in.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void ler(ListaEnc cpf) {
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(ENTRADA + "cpf.txt"));
-			String linha = "";
-			
-			while ((linha = in.readLine()) != null) {
-				cpf.insereUltimo(new Item(linha, null, null, null));
 			}
 			in.close();
 			
@@ -135,23 +100,6 @@ public class Arquivo {
 		}
 	}
 	
-	public static void gravar(ListaEnc dados, String arquivo) {
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
-			
-			No no = dados.getPrim();
-			while (no != null) {
-				out.write(no.toString());
-				out.newLine();
-			}
-			out.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public static void gravar(String[] dados, String arquivo) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(new File(SAIDA + arquivo + ".txt")));
@@ -166,7 +114,6 @@ public class Arquivo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 }

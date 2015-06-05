@@ -2,7 +2,6 @@
 public class No {
 	private Item info;
 	private No prox;
-	private No ant;
 	
 	public No() {
 		
@@ -18,14 +17,6 @@ public class No {
 	
 	public void setProx(No prox) {
 		this.prox = prox;
-	}
-
-	public No getAnt() {
-		return ant;
-	}
-
-	public void setAnt(No ant) {
-		this.ant = ant;
 	}
 
 	public Item getInfo() {

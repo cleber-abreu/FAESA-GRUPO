@@ -1,7 +1,7 @@
 public class NoArvore {
 	private Item info;
 	private NoArvore esq, dir;
-	private ListaEnc repetido;
+	private No repetido;
 	private byte fatorBalanceamento;
 
 	public NoArvore(Item i) {
@@ -25,11 +25,11 @@ public class NoArvore {
 		this.esq = esq;
 	}
 	
-	public ListaEnc getRepetido() {
+	public No getRepetido() {
 		return repetido;
 	}
 
-	public void setRep(ListaEnc rep) {
+	public void setRep(No rep) {
 		this.repetido = rep;
 	}
 

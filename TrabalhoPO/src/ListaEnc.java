@@ -37,7 +37,6 @@ public class ListaEnc {
 		if (this.vazia())
 			this.prim = novoNo;
 		else {
-			novoNo.setAnt(this.ult);
 			this.ult.setProx(novoNo);
 		}
 		this.ult = novoNo;

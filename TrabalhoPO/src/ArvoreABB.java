@@ -31,7 +31,7 @@ public class ArvoreABB {
 				str = no.toString();
 				total = no.getInfo().getValor();
 				if (no.getRepetido() != null) {
-					No repetidos = no.getRepetido().getPrim();
+					No repetidos = no.getRepetido();
 					while (repetidos != null) {
 						str += repetidos.getCompra();
 						total += repetidos.getInfo().getValor();
@@ -41,7 +41,6 @@ public class ArvoreABB {
 				str += "TOTAL: " + total;
 			}
 		}
-		
 		return str;
 	}
 
@@ -52,26 +51,26 @@ public class ArvoreABB {
 	}
 
 	private NoArvore insere(Item elem, NoArvore no) {
-		NoArvore novo;
 		if (no == null) {
-			novo = new NoArvore(elem);
-			return novo;
-		} else {
-			if (elem.getCpfLong() < no.getInfo().getCpfLong()) {
-				no.setEsq(this.insere(elem, no.getEsq()));
-				return no;
-			} else if (elem.getCpfLong() > no.getInfo().getCpfLong()) {
-				no.setDir(this.insere(elem, no.getDir()));
-				return no;
-			}
-			// Inserir CPF repetido
+			return (new NoArvore(elem));
+		} else if (elem.getCpfLong() < no.getInfo().getCpfLong()) {
+			no.setEsq(this.insere(elem, no.getEsq()));
+			return no;
+		} else if (elem.getCpfLong() > no.getInfo().getCpfLong()) {
+			no.setDir(this.insere(elem, no.getDir()));
+			return no;
+		}
+		// Inserir CPF repetido
+		else {
+			if (no.getRepetido() == null)
+				no.setRep(new No(elem));
 			else {
-				if (no.getRepetido() == null)
-					no.setRep(new ListaEnc(elem));
-				else
-					no.getRepetido().insereUltimo(elem);
-				return no;
+				No repetido = no.getRepetido();
+				while (repetido.getProx() != null)
+					repetido = repetido.getProx();
+				repetido.setProx(new No(elem));
 			}
+			return no;
 		}
 	}
 
@@ -88,18 +87,18 @@ public class ArvoreABB {
 			vetOrdenado[i[0]] = arv.getInfo();
 			i[0]++;
 			if (arv.getRepetido() != null) {
-				No temp = arv.getRepetido().getPrim();
-				while (temp != null) {
-					vetOrdenado[i[0]] = temp.getInfo();
+				No reptidos = arv.getRepetido();
+				while (reptidos != null) {
+					vetOrdenado[i[0]] = reptidos.getInfo();
 					i[0]++;
-					temp = temp.getProx();
+					reptidos = reptidos.getProx();
 				}
 			}
 			vetOrdenado = fazCamCentral(arv.getDir(), vetOrdenado, i);
 		}
 		return vetOrdenado;
 	}
-	
+
 	public ArvoreABB arvBalanceada() {
 		ArvoreABB temp = new ArvoreABB();
 		Item[] vetOrdenado = camCentral();
