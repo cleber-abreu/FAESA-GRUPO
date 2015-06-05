@@ -20,18 +20,29 @@ public class ArvoreAVL {
 			NoArvore novo = new NoArvore(elem);
 			this.h = true;
 			return novo;
-		} else {
-			if (elem.getCpfLong() <= no.getInfo().getCpfLong()) {
-				// Insere à esquerda e verifica se precisa balancear à direita
-				no.setEsq(this.insere(elem, no.getEsq()));
-				no = this.balancearDir(no);
-				return no;
-			} else {
-				// Insere à direita e verifica se precisa balancear à esquerda
-				no.setDir(this.insere(elem, no.getDir()));
-				no = this.balancearEsq(no);
-				return no;
+		} else if (elem.getCpfLong() < no.getInfo().getCpfLong()) {
+			// Insere à esquerda e verifica se precisa balancear à direita
+			no.setEsq(this.insere(elem, no.getEsq()));
+			no = this.balancearDir(no);
+			return no;
+		} else if (elem.getCpfLong() > no.getInfo().getCpfLong()) {
+			// Insere à direita e verifica se precisa balancear à esquerda
+			no.setDir(this.insere(elem, no.getDir()));
+			no = this.balancearEsq(no);
+			return no;
+		}
+		// Inserir CPF repetido
+		else {
+			if (no.getRepetido() == null)
+				no.setRep(new No(elem));
+			else {
+				No repetido = no.getRepetido();
+				while (repetido.getProx() != null)
+					repetido = repetido.getProx();
+				repetido.setProx(new No(elem));
 			}
+			this.h = false;
+			return no;
 		}
 	}
 
@@ -106,6 +117,8 @@ public class ArvoreAVL {
 		if (temp1.getFatorBalanceamento() == 1) {
 			no.setDir(temp1.getEsq());
 			temp1.setEsq(no);
+			no.setFatorBalanceamento((byte) 0);
+			no = temp1;
 		} else {
 			temp2 = temp1.getEsq();
 			temp1.setEsq(temp2.getDir());
@@ -128,13 +141,13 @@ public class ArvoreAVL {
 		this.h = false;
 		return no;
 	}
-	
+
 	public Item[] vetorOrdenado() {
 		Item[] vet = new Item[this.quantNos];
 		int[] i = new int[1];
 		i[0] = 0;
 		vetorOrdenado(this.raiz, vet, i);
-		
+
 		return vet;
 	}
 
@@ -143,9 +156,16 @@ public class ArvoreAVL {
 			return;
 		}
 		vetorOrdenado(no.getEsq(), vet, i);
-		//System.out.println(i[0] +" - "+ no.getInfo().getCpf());
 		vet[i[0]] = no.getInfo();
 		i[0]++;
+		if (no.getRepetido() != null) {
+			No reptidos = no.getRepetido();
+			while (reptidos != null) {
+				vet[i[0]] = reptidos.getInfo();
+				i[0]++;
+				reptidos = reptidos.getProx();
+			}
+		}
 		vetorOrdenado(no.getDir(), vet, i);
 	}
 }
