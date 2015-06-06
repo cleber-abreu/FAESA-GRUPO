@@ -11,7 +11,7 @@ public class MetodosOrdenacao {
 		Item temp;
 		pivo = _lista[(i+j)/2].getCpfLong();
 		
-		do {
+		while (i <= j){
 			while (_lista[i].getCpfLong() < pivo)
 				i++;
 			
@@ -25,7 +25,7 @@ public class MetodosOrdenacao {
 				i++;
 				j--;
 			}
-		} while (i <= j);
+		} 
 		
 		if (esq < j){
 			ordena (esq, j, _lista);

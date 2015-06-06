@@ -9,7 +9,7 @@ public class ArvoreABB {
 	}
 
 	public String[] pesquisa(String[] cpfs) {
-		String[] linha = new String[200];
+		String[] linha = new String[cpfs.length];
 		for (int i = 0; i < cpfs.length; i++) {
 			linha[i] = this.pesquisa(Long.parseLong(cpfs[i]), this.raiz);
 			if (linha[i].isEmpty()) {
@@ -47,7 +47,6 @@ public class ArvoreABB {
 	public void insere(Item elem) {
 		this.raiz = this.insere(elem, this.raiz);
 		this.quantNos++;
-
 	}
 
 	private NoArvore insere(Item elem, NoArvore no) {
@@ -59,17 +58,14 @@ public class ArvoreABB {
 		} else if (elem.getCpfLong() > no.getInfo().getCpfLong()) {
 			no.setDir(this.insere(elem, no.getDir()));
 			return no;
-		}
-		// Inserir CPF repetido
-		else {
-			if (no.getRepetido() == null)
+		} else {// Inserir CPF repetido
+			if (no.getRepetido() == null){
 				no.setRep(new No(elem));
-			else {
+			}else {
 				No repetido = no.getRepetido();
 				while (repetido.getProx() != null)
 					repetido = repetido.getProx();
 				repetido.setProx(new No(elem));
-
 			}
 			return no;
 		}

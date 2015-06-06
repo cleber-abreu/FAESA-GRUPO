@@ -65,6 +65,26 @@ public class Arquivo {
 		}
 	}
 	
+	public static void ler(Hashing hs, String arquivo) {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(new File(ENTRADA + arquivo + ".txt")));
+			String linha = "";
+			String campo[];
+			
+			while ((linha = in.readLine()) != null) {
+				campo = linha.split(";");
+				hs.insereH(new Item(campo[0], campo[1], campo[2], campo[3]));
+			}
+			
+			in.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	public static void ler(String[] vetorCPF) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(ENTRADA + "cpf.txt"));

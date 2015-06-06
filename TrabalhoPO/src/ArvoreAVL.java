@@ -171,7 +171,7 @@ public class ArvoreAVL {
 	}
 	
 	public String[] pesquisa(String[] cpfs) {
-		String[] linha = new String[200];
+		String[] linha = new String[cpfs.length];
 		for (int i = 0; i < cpfs.length; i++) {
 			linha[i] = this.pesquisa(Long.parseLong(cpfs[i]), this.raiz);
 			if (linha[i].isEmpty()) {
