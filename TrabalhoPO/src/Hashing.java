@@ -4,8 +4,6 @@ public class Hashing {
 	private int m;
 	
 	public void insereH(Item item){
-		NoSimples aux = new NoSimples();
-		aux.setI(item);
 		int n = (int) (item.getCpfLong() % m);
 		vetEnc[n].insereUltimo(item);
 	}

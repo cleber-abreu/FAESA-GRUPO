@@ -9,12 +9,9 @@ public class Principal {
 		Hashing hash;
 		boolean primeiroLoop;
 		long tempoVetorQS = 0, tempoVetorQI = 0, tempoABB = 0, tempoAVL = 0, tempoHash = 0;
-		//QS = QuickSort / QI = Quicksort + inserção
 		String[] tipos = {"alea","ord","inv"};
-		//String[] tipos = {"alea"};
 		String nomeArquivo = "";
 		String[] cpf;
-		//int[] tamanhos = {500,1000,5000,10000,50000};
 		int[] tamanhos = {500,1000,5000,10000,50000};
 		
 		double testeTempoI = System.currentTimeMillis();
@@ -32,7 +29,7 @@ public class Principal {
 					Arquivo.ler(cpf);
 					
 					/* VETOR QUICKSORT */
-					/*
+					
 					tempoInicial = System.currentTimeMillis();
 					
 					vetorDados = new Item[tamanhos[j]];
@@ -50,10 +47,10 @@ public class Principal {
 					if (!primeiroLoop) {
 						tempoVetorQS += tempoTotal;
 					}
-					*/
+					
 					
 					/* VETOR QUICKSORT + INSERÇÃO */
-					/*
+					
 					tempoInicial = System.currentTimeMillis();
 					
 					vetorDados = new Item[tamanhos[j]];
@@ -71,10 +68,10 @@ public class Principal {
 					if (!primeiroLoop) {
 						tempoVetorQI += tempoTotal;
 					}
-					*/
+					
 					
 					/* ABB */
-					/*
+					
 					tempoInicial = System.currentTimeMillis();
 					abb = new ArvoreABB();
 					Arquivo.ler(abb, nomeArquivo);
@@ -86,22 +83,20 @@ public class Principal {
 							
 					if (!primeiroLoop) tempoABB += tempoTotal;
 					
-					*/
+					
 					
 					/* AVL */
-					/*
+					
 					tempoInicial = System.currentTimeMillis();
 					avl = new ArvoreAVL();
 					Arquivo.ler(avl, nomeArquivo);
 					
 					Arquivo.gravar(avl.vetorOrdenado(), "AVL-"+tamanhos[j]+tipos[k]);
-					
 					Arquivo.gravar(avl.pesquisa(cpf), "AVL-PESQ-"+ tamanhos[j]+tipos[k]);
 					
 					tempoTotal = System.currentTimeMillis() - tempoInicial;
-
 					if (!primeiroLoop) tempoAVL += tempoTotal;
-					*/
+					
 					
 					/* HASHING */
 					
@@ -112,27 +107,25 @@ public class Principal {
 					Arquivo.gravar(hash.pesquisa(cpf), "HASH-PESQ-"+ tamanhos[j]+tipos[k]);
 					
 					tempoTotal = System.currentTimeMillis() - tempoInicial;
-
-					if (!primeiroLoop) tempoAVL += tempoTotal;
+					if (!primeiroLoop) tempoHash += tempoTotal;
 					
 					
 					//depois do primeiro loop
 					primeiroLoop = false;
 				}
 				
-				/*System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick: " +(tempoVetorQS/5));
+				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick: " +(tempoVetorQS/5));
 				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média Vetor Quick Insert: " +(tempoVetorQI/5));
 				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média ABB: " +(tempoABB/5));
-				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média AVL: " +(tempoAVL/5));*/
-				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média HASHING: " +(tempoHash));
+				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média AVL: " +(tempoAVL/5));
+				System.out.println("Arquivo: " + tamanhos[j]+" - "+ tipos[k]+ " - Média HASHING: " +(tempoHash/5));
 			}
 		}
 		
 		testeTempoF = System.currentTimeMillis() - testeTempoI;
 		System.out.println("tempo total gasto: "+FormataTempo(testeTempoF));
 		
-		System.out.println("FIM! =)");
-		
+		System.out.println("FIM! =)");	
 	}
 	
 	public static String TempoSegundos(double tempo){
